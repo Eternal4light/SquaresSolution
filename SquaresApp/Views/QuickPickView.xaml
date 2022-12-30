@@ -1,0 +1,54 @@
+﻿<Window x:Class="SquaresApp.Views.QuickPickView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SquaresApp.Views" xmlns:viewmodels="clr-namespace:SquaresApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:QuickPickViewModel}"
+        mc:Ignorable="d"
+        Title="QuickPick" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button MinHeight="20" MinWidth="20" Margin="2" Style="{StaticResource RotationButton}" Command="{Binding AddSquare}"   >+</Button>
+                <Button MinHeight="20" MinWidth="20" Margin="2" Style="{StaticResource RotationButton}" Command="{Binding RemoveSquare}">-</Button>
+            </StackPanel>
+
+            <StackPanel>
+                <ScrollViewer x:Name="MainScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility ="Disabled"
+                             
+                              PreviewMouseLeftButtonUp="ScrollViewer_PreviewStylusUp"
+                              PreviewMouseLeftButtonDown="ScrollViewer_PreviewStylusDown"
+                              PreviewMouseMove ="ScrollViewer_PreviewStylusMove">
+
+                    <StackPanel x:Name = "MainStackPanel">
+                        <ItemsControl Grid.Column="0" ItemsSource="{Binding Squares, UpdateSourceTrigger=PropertyChanged}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource Square}" CommandParameter="{Binding  Path=Id}"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:QuickPickView}}, Path=DataContext.ChangeColor}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
