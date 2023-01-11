@@ -8,7 +8,7 @@ namespace SquaresApp.ViewModels
 {
     internal class QuickPickViewModel : INotifyPropertyChanged
     {
-        private const int DEFAULT_SQUARES_QUANTITY = 6;
+        private const int DEFAULT_SQUARES_QUANTITY = 10;
         private ObservableCollection<Square> squares;
 
         private AddSquare addSquare;

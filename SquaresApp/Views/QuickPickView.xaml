@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:AttachedBehavior="clr-namespace:SquaresApp"
         xmlns:local="clr-namespace:SquaresApp.Views" xmlns:viewmodels="clr-namespace:SquaresApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:QuickPickViewModel}"
         mc:Ignorable="d"
         Title="QuickPick" Height="450" Width="800">
@@ -28,9 +29,13 @@
             <StackPanel>
                 <ScrollViewer x:Name="MainScrollViewer" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility ="Disabled"
                              
-                              PreviewMouseLeftButtonUp="ScrollViewer_PreviewStylusUp"
-                              PreviewMouseLeftButtonDown="ScrollViewer_PreviewStylusDown"
-                              PreviewMouseMove ="ScrollViewer_PreviewStylusMove">
+                    AttachedBehavior:ScrollAnimationBehavior.IsEnabled="True"                         
+                    AttachedBehavior:ScrollAnimationBehavior.TimeDuration="00:00:00.20"
+                    AttachedBehavior:ScrollAnimationBehavior.PointsToScroll="16"
+                              
+                    PreviewMouseLeftButtonUp="ScrollViewer_PreviewStylusUp"
+                    PreviewMouseLeftButtonDown="ScrollViewer_PreviewStylusDown"
+                    PreviewMouseMove ="ScrollViewer_PreviewStylusMove">
 
                     <StackPanel x:Name = "MainStackPanel">
                         <ItemsControl Grid.Column="0" ItemsSource="{Binding Squares, UpdateSourceTrigger=PropertyChanged}">
